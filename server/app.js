@@ -8,17 +8,32 @@ app.listen(PORT,()=>{
 
 app.use(express.static('build'));
 
-const items = [
-    {
-        name:"laptop",
-        price:50
-    },{
-        name:"desktop",
-        price:30
-    }
-];
+const symbols = ['EUR','HUF','CHF'];
+const rate = [330];
 
-app.get("/api/items",(req,resp)=>{
-    resp.send(items);
+app.get("/symbols",(req,res)=>{
+    res.send(symbols);
 });
+
+
+
+
+
+
+app.get("/convert",(req,res)=>{
+    console.log(req.query);
+   const amount = req.query.amount;
+   const from = req.query.from;
+   const to = req.query.to;
+
+   if(from === 'HUF'){
+        const euroAmount = amount / rate;
+        res.sendStatus(euroAmount);
+    } else if (from === 'EUR'){
+        constForintAmount = amount* rate;
+        res.sendStatus(constForintAmount);
+    }
+  
+
+})
 

@@ -12,9 +12,14 @@ function App() {
     .then(data=>setItems(data));
   },[]);
 
+  const itemsToRender = items.map(item=>{
+    return <p>{item.name}</p>
+  });
+
   return (
    <div>
     <h1>Main</h1>
+    {itemsToRender}
    </div>
   );
 }
