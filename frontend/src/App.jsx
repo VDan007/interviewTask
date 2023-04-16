@@ -1,9 +1,18 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react';
+import {currencies, currencies as penz}  from '../devDB'; ///////delet before shipping
 
-
+console.log(currencies);
 
 function App() {
+  const [changeData,setChangeData] = useState({});
+  const [currencies,setCurrencies] = useState([]);
 
+  useEffect(
+    ()=>{
+        ///get currencies from db
+        setCurrencies(penz);
+    },[]
+  );
 
   return (
     <div className='app__container'>
