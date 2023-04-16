@@ -24,7 +24,10 @@ function App() {
   useEffect(
     ()=>{
         ///get currencies from db
-        setCurrencies(penz);
+        fetch('/symbols')
+        .then(res=>res.json())
+        .then(data=>setCurrencies(data))
+        
     },[]
   );
   useEffect(
