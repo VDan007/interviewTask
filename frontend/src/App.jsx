@@ -88,6 +88,7 @@ function App() {
               value={changeData.amount}
               onChange={amountHandleChange}
               min= "0"
+              
             />
         </label>
 
