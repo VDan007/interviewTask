@@ -1,5 +1,6 @@
 import { useState,useEffect } from 'react';
 import {currencies, currencies as penz, changeLogic}  from '../devDB'; ///////delet before shipping
+import { NewRateWindow } from './components/NewRateWindow';
 
 console.log(currencies);
 
@@ -18,6 +19,7 @@ function App() {
   const [result,setResult] = useState(0);
   console.log(result);
   const [showResult,setShowResult] = useState(false);
+  const [showNRW,setShowNRW] = useState(false);
 
   useEffect(
     ()=>{
@@ -35,6 +37,10 @@ function App() {
        
     },[getInfoFromServer]
   );
+
+  function openNRW(){
+    setShowNRW(true);
+  }
 
 
   function amountHandleChange(e){
@@ -121,7 +127,10 @@ function App() {
         
         <div className='btnDiv'>
           <button id='mehetBtn'>Mehet</button>
-          <button type='button' id='newRateBtn'
+          <button 
+            type='button' 
+            id='newRateBtn'
+            onClick={openNRW}
           >Új átváltási ráta felvétele
           </button>
         </div>
@@ -131,7 +140,8 @@ function App() {
         <p>{changeData.amount} {changeData.from}</p>
         <h3>{result} {changeData.to}</h3>
       </div>}
-
+      {showNRW && <NewRateWindow
+                   show={setShowNRW} />}
     </div>
   );
 }
