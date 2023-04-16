@@ -33,10 +33,11 @@ function App() {
   useEffect(
     ()=>{
         ///////make server calculate
-      
-        setResult(
-          changeLogic(changeData.amount,changeData.from,changeData.to)
-        );
+        fetch(`/convert?from=${changeData.from}&to=${changeData.to}&amount=${changeData.amount}`)
+        .then(res=>res.json())
+        .then(data=>setResult(data))
+        
+        
        
     },[getInfoFromServer]
   );

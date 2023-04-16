@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 
 const db = {
-    initialCurrencies : ['EUR','HUF','mak'],
+    initialCurrencies : ['EUR','HUF'],
     rates : {
         HUFtoEUR: 1/330,
         EURtoHUF: 330,
@@ -28,5 +28,6 @@ app.get("/convert",(req,res)=>{
     const to = req.query.to;
     const key =  `${from}to${to}`;
     const result = amount * db.rates[key];
-    res.sendStatus(result);
+    res.send(result.toString());
+    console.log(result);
 })
