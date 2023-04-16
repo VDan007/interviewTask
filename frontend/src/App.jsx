@@ -17,7 +17,7 @@ function App() {
   });
   const [getInfoFromServer,setGetInfoFromServer] = useState(true);
   const [result,setResult] = useState(0);
-  console.log(result);
+  //console.log(result);
   const [showResult,setShowResult] = useState(false);
   const [showNRW,setShowNRW] = useState(false);
 
@@ -138,7 +138,7 @@ function App() {
 
       {showResult && <div className='result__section'>
         <p>{changeData.amount} {changeData.from}</p>
-        <h3>{result} {changeData.to}</h3>
+        <h3>{result.toFixed(2)} {changeData.to}</h3>
       </div>}
       {showNRW && <NewRateWindow
                    show={setShowNRW} />}

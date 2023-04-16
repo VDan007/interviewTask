@@ -13,4 +13,9 @@ function changeLogic(amount,from,to){
   return  amount * rates[key];
 }
 
-export { currencies, changeLogic };
+function makeRate(from,to,rate){
+  console.log(`${from}to${to}: ${rate}`);
+  console.log(`${to}to${from}: 1/${rate}`);
+}
+
+export { currencies, changeLogic, makeRate };

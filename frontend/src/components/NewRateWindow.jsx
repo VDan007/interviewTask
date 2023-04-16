@@ -1,14 +1,58 @@
 
+import { useState, useEffect } from "react";
+import { makeRate } from '../../devDB';
 
 function NewRateWindow(props){
+
+    const [rateParams,setRateParams ] = useState({
+                                        from: 'HUF',
+                                        to:   'EUR',
+                                        rate: 1
+                                        });
+
+    // console.log('rateParams');                                    
+    // console.log(rateParams);         
+    
+    
+
+    const currenciesAvailableToChoose = [
+        'HUF','EUR',
+        'USD','CHF',
+        'GBP','CNY'
+    ];
+
+    function handleFromChange(e){
+        setRateParams(prev=>{
+            return {...prev,
+                    from: e.target.value}
+        });
+    }
+    function handleToChange(e){
+        setRateParams(prev=>{
+            return {...prev,
+                    to: e.target.value}
+        });
+    }
+    function handleRateChange(e){
+        setRateParams(prev=>{
+            return {...prev,
+                    rate: e.target.value}
+        });
+    }
+    
+    const optionsForSelectCurrencies = currenciesAvailableToChoose.map(item=>{
+        return <option value={item} key={item}>{item}</option>
+    });
 
     function closeNRW(e){
         e.preventDefault();
         props.show(false);
     }
 
-    function handleSubmitOfNewRW(){
-        null
+    function handleSubmitOfNewRW(e){
+        e.preventDefault();
+        makeRate(rateParams.from,rateParams.to,rateParams.rate);
+        props.show(false);
     }
 
    return(
@@ -24,9 +68,10 @@ function NewRateWindow(props){
                 >Erről a valutáról
                 <select 
                     name="from"
-                    
+                    value = {rateParams.from}
+                    onChange={handleFromChange}
                 >
-                    
+                    {optionsForSelectCurrencies}
                 </select>
                 </label>
 
@@ -36,9 +81,10 @@ function NewRateWindow(props){
                 >Erre a valutára
                 <select 
                     name="to"
-                    
+                    value={rateParams.to}
+                    onChange={handleToChange}
                 >
-               
+                    {optionsForSelectCurrencies}
                 </select>
                 </label>
                 <label 
@@ -48,7 +94,8 @@ function NewRateWindow(props){
                     <input
                     name='rate' 
                     type='number'
-                    
+                    value={rateParams.rate} 
+                    onChange={handleRateChange}
                     min= "0"
                      />
                 </label>
