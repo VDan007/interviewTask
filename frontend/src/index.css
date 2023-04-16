@@ -34,7 +34,13 @@ form{
 .btnDiv{
   width:100%;
   text-align: center;
-  padding: 2rem;
+  padding: 2rem 0;
+  position:relative;
+}
+
+#newRateBtn{
+  position: absolute;
+  right:0;
 }
 
 button{

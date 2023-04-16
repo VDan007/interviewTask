@@ -9,13 +9,14 @@ function App() {
     from:'HUF',
     to:'EUR',
   });
-  console.log(changeData);
+  // console.log(changeData);
   const [currencies,setCurrencies] = useState([]);
   const currenciesToChooseFrom = currencies.map(item=>{
     return <option key={item} value ={item}>{item}</option>
   });
   const [getInfoFromServer,setGetInfoFromServer] = useState(true);
   const [result,setResult] = useState(0);
+  console.log(result);
   const [showResult,setShowResult] = useState(false);
 
   useEffect(
@@ -119,7 +120,10 @@ function App() {
         </label>
         
         <div className='btnDiv'>
-          <button>Mehet</button>
+          <button id='mehetBtn'>Mehet</button>
+          <button type='button' id='newRateBtn'
+          >Új átváltási ráta felvétele
+          </button>
         </div>
       </form>
 

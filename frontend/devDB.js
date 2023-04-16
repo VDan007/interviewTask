@@ -1,16 +1,16 @@
 const currencies = ['HUF','EUR'];
 
-
+const rates = {
+    HUFtoEUR: 1/330,
+    EURtoHUF: 330,
+};
 
 function changeLogic(amount,from,to){
-            
-    const rate = 330;
 
-    if(from === 'HUF'){
-        return amount / rate;
-    } else if ( from === 'EUR'){
-        return amount * rate;
-    }
+   const key =  `${from}to${to}`;
+
+            
+  return  amount * rates[key];
 }
 
 export { currencies, changeLogic };
