@@ -1,5 +1,5 @@
 import { useState,useEffect } from 'react';
-import {currencies, currencies as penz}  from '../devDB'; ///////delet before shipping
+import {currencies, currencies as penz, changeLogic}  from '../devDB'; ///////delet before shipping
 
 console.log(currencies);
 
@@ -14,6 +14,9 @@ function App() {
   const currenciesToChooseFrom = currencies.map(item=>{
     return <option key={item} value ={item}>{item}</option>
   });
+  const [getInfoFromServer,setGetInfoFromServer] = useState(true);
+  const [result,setResult] = useState(0);
+  const [showResult,setShowResult] = useState(false);
 
   useEffect(
     ()=>{
@@ -21,25 +24,51 @@ function App() {
         setCurrencies(penz);
     },[]
   );
+  useEffect(
+    ()=>{
+        ///////make server calculate
+      
+        setResult(
+          changeLogic(changeData.amount,changeData.from,changeData.to)
+        );
+       
+    },[getInfoFromServer]
+  );
 
 
   function amountHandleChange(e){
+    setShowResult(false);
     setChangeData(prev=>{
       return {...prev,
               amount: e.target.value}
     })
   }
   function fromHandleChange(e){
+    setShowResult(false);
     setChangeData(prev=>{
       return {...prev,
               from: e.target.value}
     })
   }
   function toHandleChange(e){
+    setShowResult(false);
     setChangeData(prev=>{
       return {...prev,
               to: e.target.value}
     })
+  }
+
+  function handleSubmit(e){
+    e.preventDefault();
+    if( changeData.from === changeData.to ){
+      alert('You choose the same currencies, please change either of them');
+    } else if( changeData.amount == 0){
+      alert('Please choose an amount bigger than zero');
+    } else {
+      setGetInfoFromServer(prev=>!prev);
+      setShowResult(true);
+      console.log('works');
+    }
   }
 
 
@@ -47,7 +76,7 @@ function App() {
     <div className='app__container'>
       <h1>Online valutaváltó</h1>
 
-      <form action="submit">
+      <form onSubmit={handleSubmit}>
 
         <label 
           htmlFor="amount"
@@ -58,6 +87,7 @@ function App() {
               type='number'
               value={changeData.amount}
               onChange={amountHandleChange}
+              min= "0"
             />
         </label>
 
@@ -91,10 +121,12 @@ function App() {
           <button>Mehet</button>
         </div>
       </form>
-      <div className='result__section'>
-        <p>200 000HUF = </p>
-        <h3>620 EUR</h3>
-      </div>
+
+      {showResult && <div className='result__section'>
+        <p>{changeData.amount} {changeData.from}</p>
+        <h3>{result} {changeData.to}</h3>
+      </div>}
+
     </div>
   );
 }
