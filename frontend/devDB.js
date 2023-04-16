@@ -1,4 +1,4 @@
-const currencies = ['HUF','EUR'];
+const currencies = ['HUF','EUR','CHF'];
 
 
 export { currencies };

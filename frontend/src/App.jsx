@@ -4,8 +4,16 @@ import {currencies, currencies as penz}  from '../devDB'; ///////delet before sh
 console.log(currencies);
 
 function App() {
-  const [changeData,setChangeData] = useState({});
+  const [changeData,setChangeData] = useState({
+    amount:0,
+    from:'HUF',
+    to:'EUR',
+  });
+  console.log(changeData);
   const [currencies,setCurrencies] = useState([]);
+  const currenciesToChooseFrom = currencies.map(item=>{
+    return <option key={item} value ={item}>{item}</option>
+  });
 
   useEffect(
     ()=>{
@@ -13,6 +21,27 @@ function App() {
         setCurrencies(penz);
     },[]
   );
+
+
+  function amountHandleChange(e){
+    setChangeData(prev=>{
+      return {...prev,
+              amount: e.target.value}
+    })
+  }
+  function fromHandleChange(e){
+    setChangeData(prev=>{
+      return {...prev,
+              from: e.target.value}
+    })
+  }
+  function toHandleChange(e){
+    setChangeData(prev=>{
+      return {...prev,
+              to: e.target.value}
+    })
+  }
+
 
   return (
     <div className='app__container'>
@@ -24,7 +53,11 @@ function App() {
           htmlFor="amount"
           className='input__section'
         >Összeg
-            <input name='amount' type="number"
+            <input
+              name='amount' 
+              type='number'
+              value={changeData.amount}
+              onChange={amountHandleChange}
             />
         </label>
 
@@ -32,9 +65,12 @@ function App() {
           htmlFor="from"
           className='input__section'
         >Erről a valutáról
-          <select name="from">
-            <option value="">huf</option>
-            <option value="">eur</option>
+          <select 
+            name="from"
+            onChange={fromHandleChange}
+            value={changeData.from}
+          >
+            {currenciesToChooseFrom}
           </select>
         </label>
 
@@ -42,9 +78,12 @@ function App() {
         htmlFor="to"
         className='input__section'
         >Erre a valutára
-          <select name="to">
-            <option value="">huf</option>
-            <option value="">eur</option>
+          <select 
+            name="to"
+            onChange={toHandleChange}
+            value={changeData.to}
+          >
+          {currenciesToChooseFrom}
           </select>
         </label>
         
