@@ -1,0 +1,46 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+}
+
+body{
+  min-width:100vw;
+  min-height:100vh;
+}
+
+.app__container{
+  padding:4rem 8rem; 
+  min-width: 60%;
+  
+}
+
+form{
+  padding:0 2rem;
+  margin-top: 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  position: relative;
+  min-width: 60%;
+}
+
+.input__section{
+  display: flex;
+  flex-direction:column;
+  gap:1rem;
+}
+
+.btnDiv{
+  width:100%;
+  text-align: center;
+  padding: 2rem;
+}
+
+button{
+  padding: 0.2rem 0.7rem;
+}
+
+.result__section{
+  text-align: center;
+}
