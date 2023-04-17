@@ -29,5 +29,24 @@ app.get("/convert",(req,res)=>{
     const key =  `${from}to${to}`;
     const result = amount * db.rates[key];
     res.send(result.toString());
-    console.log(result);
+})
+
+app.post("/change-rate",(req,res)=>{
+    const from = req.query.from;
+    const to = req.query.to;
+    const rate = req.query.rate;
+    const key = `${from}to${to}`;
+    if(Object.keys(db.rates).includes(key)){
+        res.status(400).send({
+            message: 'This rate has been already set!'
+        });
+    } else {
+        
+        db.rates = { ...db.rates,[key]:rate};
+      
+        if(!db.initialCurrencies.includes(from)){
+            db.initialCurrencies.push(from);
+            console.log(db.initialCurrencies);
+        }         
+    }
 })

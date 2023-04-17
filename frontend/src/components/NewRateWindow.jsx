@@ -10,8 +10,27 @@ function NewRateWindow(props){
                                         rate: 1
                                         });
 
+    const [newRateSet,setNewRateSet  ] = useState(false);                                 
+
     // console.log('rateParams');                                    
-    // console.log(rateParams);         
+    // console.log(rateParams);      
+    
+    useEffect(
+        ()=>{
+            fetch(`/change-rate`,{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(Object.entries(rateParams))
+            })
+            //    .then(res=>res.json())
+            //    .then(data)
+                .catch(err=>{
+                    console.log(err);
+                })
+        },[newRateSet]
+    );
     
     
 
@@ -51,7 +70,9 @@ function NewRateWindow(props){
 
     function handleSubmitOfNewRW(e){
         e.preventDefault();
-        makeRate(rateParams.from,rateParams.to,rateParams.rate);
+        setNewRateSet(prev=>!prev)
+       // makeRate(rateParams.from,rateParams.to,rateParams.rate);
+        props.refreshSymbols(prev=>!prev)
         props.show(false);
     }
 

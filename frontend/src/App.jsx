@@ -1,8 +1,8 @@
 import { useState,useEffect } from 'react';
-import {currencies, currencies as penz, changeLogic}  from '../devDB'; ///////delet before shipping
+//import {currencies, currencies as penz, changeLogic}  from '../devDB'; ///////delet before shipping
 import { NewRateWindow } from './components/NewRateWindow';
 
-console.log(currencies);
+
 
 function App() {
   const [changeData,setChangeData] = useState({
@@ -20,6 +20,7 @@ function App() {
   //console.log(result);
   const [showResult,setShowResult] = useState(false);
   const [showNRW,setShowNRW] = useState(false);
+  const [symbolRefresh,setSymbolRefresh] = useState(true);
 
   useEffect(
     ()=>{
@@ -27,8 +28,9 @@ function App() {
         fetch('/symbols')
         .then(res=>res.json())
         .then(data=>setCurrencies(data))
-        
-    },[]
+        console.log('symbol update');
+        console.log(currencies);
+    },[symbolRefresh]
   );
   useEffect(
     ()=>{
@@ -145,7 +147,8 @@ function App() {
         <h3>{result.toFixed(2)} {changeData.to}</h3>
       </div>}
       {showNRW && <NewRateWindow
-                   show={setShowNRW} />}
+                   show={setShowNRW}
+                   refreshSymbols = {setSymbolRefresh} />}
     </div>
   );
 }
